@@ -24,10 +24,10 @@ jobs:
           test -s .codex/skills/blueberry-agent/SKILL.md
           grep -q '^name: blueberry-agent$' .codex/skills/blueberry-agent/SKILL.md
           grep -q '^description:' .codex/skills/blueberry-agent/SKILL.md
-      - name: Check for committed secrets
+      - name: Check for common committed secrets
         shell: bash
         run: |
-          ! grep -RInE 'BAND_ACCESS_TOKEN|refresh_token|client_secret' .codex integrations docs mcp .github/workflows
+          ! grep -RInE '(^|[[:space:]])(sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|Bearer[[:space:]]+[A-Za-z0-9._-]{20,})' .codex integrations docs mcp .github/workflows
       - name: Validate Python MCP syntax when present
         shell: bash
         run: |
